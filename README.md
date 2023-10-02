@@ -25,10 +25,10 @@ There are a total of 3 consumers, one for each of the three queues - "01-smoker"
 
 ![Alt text](https://github.com/bkargel/streaming-06-smart-smoker2/blob/main/foodA_consumer.png?raw=true "FoodA messages consumed, with alert")
 
-![Alt text](
+![Alt text](https://github.com/bkargel/streaming-06-smart-smoker2/blob/main/foodB_consumer.png?raw=true "FoodB messages consumer, with alert")
 
 ## Screenshot of queue admin
 
-![Alt text](
+![Alt text](https://github.com/bkargel/streaming-06-smart-smoker2/blob/main/Queue%20Admin.png?raw=true "Queue Admin")
 
 
