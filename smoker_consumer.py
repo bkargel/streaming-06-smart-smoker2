@@ -2,7 +2,7 @@
     This program listens for work messages contiously in the smoker queue and sends an alert 
     when certain conditions are met.
 
-    Condition: Smoker temperature decreases by 15 or more dregrees in a 15-minute window.
+    Condition: Smoker temperature decreases by more than 15 degrees in a 2.5-minute window.
 
     Author: Brendi Kargel
     Date: September 29, 2023
