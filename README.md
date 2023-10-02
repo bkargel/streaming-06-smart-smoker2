@@ -19,6 +19,10 @@ There are a total of 3 consumers, one for each of the three queues - "01-smoker"
 
 ![Alt text](https://github.com/bkargel/streaming-06-smart-smoker2/blob/main/bbq_producer.png?raw=true "bbq_producer messages sent")
 
+## Screenshot of concurrent processes
+
+![Alt text](https://github.com/bkargel/streaming-06-smart-smoker2/blob/main/concurrent_processes.pngraw=true "Concurrent processes")
+
 ## Screenshots of consumers receiving messages and printing alerts
 
 ![Alt text](https://github.com/bkargel/streaming-06-smart-smoker2/blob/main/smoker_consumer.png?raw=true "Smoker messages consumed, with alert")
