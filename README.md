@@ -21,7 +21,7 @@ There are a total of 3 consumers, one for each of the three queues - "01-smoker"
 
 ## Screenshot of concurrent processes
 
-![Alt text](https://github.com/bkargel/streaming-06-smart-smoker2/blob/main/concurrent_processes.pngraw=true "Concurrent processes")
+![Alt text](https://github.com/bkargel/streaming-06-smart-smoker2/blob/main/concurrent_processes.png?raw=true "Concurrent processes")
 
 ## Screenshots of consumers receiving messages and printing alerts
 
@@ -33,6 +33,6 @@ There are a total of 3 consumers, one for each of the three queues - "01-smoker"
 
 ## Screenshot of queue admin
 
-![Alt text](https://github.com/bkargel/streaming-06-smart-smoker2/blob/main/Queue%20Admin.png?raw=true "Queue Admin")
+![Alt text](https://github.com/bkargel/streaming-06-smart-smoker2/blob/main/queue_admin.png?raw=true "Queue Admin")
 
 
