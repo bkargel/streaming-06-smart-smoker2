@@ -1,6 +1,8 @@
 """
-    This program listens for work messages contiously. 
-    Start multiple versions to add more workers.  
+    This program listens for work messages contiously in the 03-food-B queue and sends an alert 
+    when certain conditions are met.
+
+    Condition: foodB temperatures change less than 1 degree in a 10-minute window.
 
     Author: Brendi Kargel
     Date: September 29, 2023
@@ -22,23 +24,24 @@ ADDRESS_TUPLE = (HOST, PORT)
 queue3 = "03-food-B"
 foodB_deque = deque(maxlen=20)
 foodB_alert_time = 10.0
-alert = "Alert!! Food stall! FoodB temperature has changed by less than 1 degree in 10 minutes!"
+alert = "Alert!! Food stall! foodB temperature has changed by less than 1 degree in 10 minutes!"
 
+# Define the callback for foodB
 def foodB_callback(ch, method, properties, body):
     """ Define behavior on getting a message."""
-    #splitting the smoker data for only the temperature
+    # decode the binary message body to a string
     foodB_temp =  body.decode().split(",")
-        # creating a temperture variable
     temperature = [0]
+    # Do not change to float if temp is "temp not recorded"
     if foodB_temp[1] != "temp not recorded":
 
-    #changing the temperature string to a float
+    # Changing the temperature string to a float in order to do calculations
         temperature[0] = float(foodB_temp[1])
     
-    #placing the temp data in the right side of the deque
+    # Adding the temp data to the right side of the deque
         foodB_deque.append(temperature[0])
-    #creating the alert
 
+    #Calculating the temp difference and creating the alert
     if len(foodB_deque) == 20:
                 temperature_difference = foodB_deque[-1]-foodB_deque[0]
                 if temperature_difference < 1:
@@ -47,17 +50,18 @@ def foodB_callback(ch, method, properties, body):
                     if alert_needed:
                          print(alert)
 
-    print(f" [x] foodB temperature is {foodB_temp[1]}")
+    print(f" [x] foodB temperature is {foodB_temp[1]} at {foodB_temp[0]}")
 
     # when done with task, tell the user
     # acknowledge the message was received and processed 
     # (now it can be deleted from the queue)
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
+    # Clear the deque in order to start with a fresh set of 20
     if len(foodB_deque) % 20 == 0:
             foodB_deque.clear()    
 
-    # define a main function to run the program
+# define a main function to run the program
 def main(HOST: str, queue3: str):
     """ Continuously listen for task messages on a named queue."""
 

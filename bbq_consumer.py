@@ -1,6 +1,8 @@
 """
-    This program listens for work messages contiously. 
-    Start multiple versions to add more workers.  
+    This program listens for work messages contiously in the smoker queue and sends an alert 
+    when certain conditions are met.
+
+    Condition: Smoker temperature decreases by 15 or more dregrees in a 15-minute window.
 
     Author: Brendi Kargel
     Date: September 29, 2023
@@ -24,21 +26,22 @@ smoker_deque = deque(maxlen=5)
 smoker_alert_time = 15.0
 alert = "Alert!! Smoker temperature has dropped by more than 15 degrees in 2.5 minutes!"
 
+# Define the callback for smoker
 def smoker_callback(ch, method, properties, body):
     """ Define behavior on getting a message."""
-    #splitting the smoker data for only the temperature
+    # decode the binary message body to a string
     smoker_temp =  body.decode().split(",")
-        # creating a temperture variable
     temperature = [0]
+    # Do not change to float if temp is "temp not recorded"
     if smoker_temp[1] != "temp not recorded":
 
-    #changing the temperature string to a float
+    # Changing the temperature string to a float in order to do calculation
         temperature[0] = float(smoker_temp[1])
     
-    #placing the temp data in the right side of the deque
+    # Adding the temp data to the right side of the deque
         smoker_deque.append(temperature[0])
-    #creating the alert
 
+    # Calculating the temp difference and creating the alert
     if len(smoker_deque) == 5:
                 temperature_difference = [smoker_deque[i]-smoker_deque[-1]
                                           for i in range(0, (len(smoker_deque)-1),1)]
@@ -47,12 +50,8 @@ def smoker_callback(ch, method, properties, body):
 
                     if alert_needed:
                          print(alert)
-    #if len(smoker_deque) == 5:
-    #    threshhold = smoker_deque[0]-smoker_deque[4]
-    #    if threshhold > smoker_alert_time:
-   #         print(alert)
 
-    print(f" [x] Smoker temperature is {smoker_temp[1]}")
+    print(f" [x] Smoker temperature is {smoker_temp[1]} at {smoker_temp[0]}")
 
     # when done with task, tell the user
     # acknowledge the message was received and processed 
